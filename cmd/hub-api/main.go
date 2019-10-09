@@ -46,7 +46,7 @@ func main() {
 		errc <- fmt.Errorf("%s", <-c)
 	}()
 
-	log.Printf("Listening for requests on %s ", *addr)
+	log.Printf("Listening for requests on %s", *addr)
 
 	go func() {
 		errc <- http.ListenAndServe(*addr, handler)
