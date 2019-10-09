@@ -1,10 +1,10 @@
-//go:generate go-bindata -ignore=\.go -pkg=schema -o=bindata.go ./...
 package schema
 
 import (
 	"bytes"
 )
 
+// GetRootSchema ...
 func GetRootSchema() string {
 	buf := bytes.Buffer{}
 	for _, name := range AssetNames() {
