@@ -5,17 +5,24 @@ import (
 	"os"
 	"time"
 
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
 )
 
+var rdsUser string
+
+func init() {
+	rdsUser = os.Getenv("RDS_USER")
+}
+
 // IntializeDatabase 데이타베이스 초기생성
-func IntializeDatabase(mode string, dbName string) (*gorm.DB, *gorm.DB, error) {
-	masterDb, masterErr := initMasterDB(mode, dbName)
+func IntializeDatabase(dbName string) (*gorm.DB, *gorm.DB, error) {
+	masterDb, masterErr := initMasterDB(dbName)
 	if masterErr != nil {
 		return masterDb, nil, masterErr
 	}
 
-	replicaDb, repleErr := initReplicaDB(mode, dbName)
+	replicaDb, repleErr := initReplicaDB(dbName)
 	if repleErr != nil {
 		return nil, nil, repleErr
 	}
@@ -24,7 +31,7 @@ func IntializeDatabase(mode string, dbName string) (*gorm.DB, *gorm.DB, error) {
 }
 
 // Ping 디비연결 테스트
-func Ping(mode string, dbName string) error {
+func Ping(dbName string) error {
 	mysqlMasterConnStr := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local", os.Getenv("RDS_USER"), os.Getenv("RDS_PASSWORD"), os.Getenv("RDS_MASTER_HOST"), os.Getenv("RDS_PORT"), dbName)
 	masterDb, _ := gorm.Open("mysql", mysqlMasterConnStr)
 	masterDb.DB()
@@ -46,11 +53,14 @@ func Ping(mode string, dbName string) error {
 	return nil
 }
 
-func initMasterDB(mode string, dbName string) (*gorm.DB, error) {
+func initMasterDB(dbName string) (*gorm.DB, error) {
 	mysqlMasterConnStr := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local", os.Getenv("RDS_USER"), os.Getenv("RDS_PASSWORD"), os.Getenv("RDS_MASTER_HOST"), os.Getenv("RDS_PORT"), dbName)
-	masterDb, _ := gorm.Open("mysql", mysqlMasterConnStr)
+	masterDb, err := gorm.Open("mysql", mysqlMasterConnStr)
+	if err != nil {
+		return nil, err
+	}
 	masterDb.DB()
-	err := masterDb.DB().Ping()
+	err = masterDb.DB().Ping()
 	if err != nil {
 		return nil, err
 	}
@@ -63,7 +73,7 @@ func initMasterDB(mode string, dbName string) (*gorm.DB, error) {
 	return masterDb, nil
 }
 
-func initReplicaDB(mode string, dbName string) (*gorm.DB, error) {
+func initReplicaDB(dbName string) (*gorm.DB, error) {
 	mysqlReplicaConnStr := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local", os.Getenv("RDS_USER"), os.Getenv("RDS_PASSWORD"), os.Getenv("RDS_REPLICA_HOST"), os.Getenv("RDS_PORT"), dbName)
 	replicaDb, _ := gorm.Open("mysql", mysqlReplicaConnStr)
 

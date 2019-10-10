@@ -1,2 +1,2 @@
-export $(cat configs/.env.local)
-go run cmd/app-api/main.go
+# export $(cat ../../configs/.env.local)
+go run main.go
