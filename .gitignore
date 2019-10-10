@@ -1,4 +1,4 @@
-api/schema/bindata.go
+api/app/schema/bindata.go
 
 go.mod
 go.sum
