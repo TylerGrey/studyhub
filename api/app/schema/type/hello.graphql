@@ -1,7 +1,0 @@
-input ByeInput {
-  word: String!
-}
-
-type Hello {
-  word: String!
-}

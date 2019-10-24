@@ -1,4 +1,4 @@
-package user
+package mysql
 
 import (
 	"time"
@@ -10,7 +10,7 @@ import (
 
 // User 사용자
 type User struct {
-	ID        int64  `json:"id" sql:"AUTO_INCREMENT" gorm:"primary_key"`
+	ID        int64  `json:"id" gorm:"primary_key"`
 	Email     string `json:"email"`
 	Password  string `json:"password"`
 	Name      string `json:"name"`
@@ -23,7 +23,7 @@ type User struct {
 type UserRepository interface {
 	Create(user User) model.DbChannel
 	List(page int32, limit int32) model.DbChannel
-	FindByEmail(email string) model.DbChannel
+	FindByID(id int64) model.DbChannel
 }
 
 // userRepository 인터페이스 구조체
@@ -50,7 +50,7 @@ func (r userRepository) Create(user User) model.DbChannel {
 			result.Err = err
 		}
 
-		result.Data = user.ID
+		result.Data = user
 		storeChannel <- result
 		close(storeChannel)
 	}()
@@ -78,8 +78,8 @@ func (r userRepository) List(page int32, limit int32) model.DbChannel {
 	return storeChannel
 }
 
-// FindByEmail 이메일로 유저 조회
-func (r userRepository) FindByEmail(email string) model.DbChannel {
+// FindByID ID로 유저 조회
+func (r userRepository) FindByID(id int64) model.DbChannel {
 	storeChannel := make(model.DbChannel)
 	go func() {
 		result := model.DbResult{}
@@ -87,7 +87,7 @@ func (r userRepository) FindByEmail(email string) model.DbChannel {
 
 		err := r.replica.
 			Table("user").
-			Where("email = ?", email).
+			Where("id = ?", id).
 			Find(&user).Error
 		if err != nil {
 			result.Err = err

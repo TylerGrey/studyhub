@@ -9,21 +9,34 @@ import (
 	"syscall"
 
 	"github.com/TylerGrey/hub-api/api/app/handler"
-	"github.com/TylerGrey/hub-api/api/app/repo/user"
+	"github.com/TylerGrey/hub-api/api/app/repo/mysql"
 	"github.com/TylerGrey/hub-api/api/app/resolvers"
 	"github.com/TylerGrey/hub-api/api/app/schema"
-	"github.com/TylerGrey/hub-api/internal/mysql"
+	mysqlLib "github.com/TylerGrey/hub-api/internal/mysql"
 	"github.com/graph-gophers/graphql-go"
 	"github.com/rs/cors"
 )
 
+// Server API Server
 type Server struct {
 	Addr *string
 }
 
+// Start run server
 func (s Server) Start() error {
+	// DB 설정
+	mysqlMaster, mysqlReplica, err := mysqlLib.IntializeDatabase(os.Getenv("MYSQL_DB_NAME"))
+	if err != nil {
+		log.Println("db initialize error", err.Error())
+		panic(err)
+	}
+	userRepo := mysql.NewUserRepository(mysqlMaster, mysqlReplica)
+
+	// Handler 설정
 	h := &handler.GraphQL{
-		Schema: graphql.MustParseSchema(schema.GetRootSchema(), &resolvers.Resolver{}),
+		Schema: graphql.MustParseSchema(schema.GetRootSchema(), &resolvers.Resolver{
+			UserRepo: userRepo,
+		}),
 	}
 
 	mux := http.NewServeMux()
@@ -31,13 +44,7 @@ func (s Server) Start() error {
 	mux.Handle("/graphql/", h)
 	mux.Handle("/graphql", h)
 
-	userMaster, userReplica, err := mysql.IntializeDatabase(os.Getenv("MYSQL_TABLE_USER"))
-	if err != nil {
-		log.Println("db initialize error", err.Error())
-		panic(err)
-	}
-	user.NewUserRepository(userMaster, userReplica)
-
+	// CORS 설정
 	op := cors.Options{
 		AllowedOrigins:   []string{"*"},
 		AllowedMethods:   []string{"HEAD", "GET", "POST", "PUT", "PATCH", "DELETE"},
