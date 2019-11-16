@@ -4,7 +4,7 @@ import (
 	"flag"
 	"log"
 
-	"github.com/TylerGrey/hub-api/api/app"
+	"github.com/TylerGrey/study-hub/api/app"
 	"github.com/joho/godotenv"
 )
 

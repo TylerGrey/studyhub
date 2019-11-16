@@ -1,0 +1,81 @@
+##############################
+# ENUM
+##############################
+enum HubType {
+  CAFE,
+  STUDY_CAFE,
+  LIBRARY,
+  PRIVATE_ROOM
+}
+
+enum HubOrderField {
+  CREATED_AT
+}
+
+##############################
+# INPUT
+##############################
+input CreateHubInput {
+  name: String!
+  type: HubType!
+  coverImage: ImageInput!
+  images: [ImageInput!]
+  tel: String
+  address: AddressInput!
+  hours: [HubHourInput!]
+}
+
+input UpdateHubInput {
+  id: ID!
+  name: String
+  type: HubType
+  coverImage: ImageInput
+  images: [ImageInput!]
+  tel: String
+  address: AddressInput
+  hours: [HubHourInput!]
+}
+
+# TODO
+input HubHourInput {
+  label: String!
+  value: String!
+}
+
+input HubOrder {
+  field: HubOrderField!
+  direction: OrderDirection!
+}
+
+##############################
+# TYPE
+##############################
+type HubConnection {
+  edges: [HubEdge]
+  nodes: [Hub]
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type HubEdge {
+  cursor: String!
+  node: Hub
+}
+
+type Hub implements Node {
+  id: ID!
+  name: String!
+  coverImage: Image!
+  images: [Image!]
+  tel: String
+  address: Address!
+  hours: [HubHour!]
+  createdAt: String!
+  updatedAt: String!
+  deletedAt: String
+}
+
+type HubHour {
+  label: String!
+  value: String!
+}

@@ -1,3 +1,7 @@
 type Mutation {
     createUser(input: CreateUserInput!): User
+
+    createHub(input: CreateHubInput!): Hub
+    updateHub(input: UpdateHubInput!): Hub
+    deleteHub(id: ID!): Boolean!
 }

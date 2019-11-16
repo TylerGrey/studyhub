@@ -1,24 +1,24 @@
 package resolvers
 
 import (
-	"github.com/TylerGrey/hub-api/api/app/repo/mysql"
+	"github.com/TylerGrey/study-hub/internal/mysql/repo"
 
-	"github.com/TylerGrey/hub-api/api/app/resolvers/args"
-	"github.com/TylerGrey/hub-api/api/app/resolvers/model"
+	"github.com/TylerGrey/study-hub/api/app/resolvers/args"
+	"github.com/TylerGrey/study-hub/internal/resolver"
 )
 
 // CreateUser 유저 생성
-func (r *Resolver) CreateUser(input args.CreateUserInput) (*model.User, error) {
-	result := <-r.UserRepo.Create(mysql.User{
+func (r *Resolver) CreateUser(input args.CreateUserInput) (*resolver.User, error) {
+	user, err := r.UserRepo.Create(repo.User{
 		Email:    input.Input.Email,
 		Password: input.Input.Password,
 		Name:     input.Input.Name,
 	})
-	if result.Err != nil {
-		return nil, result.Err
+	if err != nil {
+		return nil, err
 	}
 
-	return &model.User{
-		Data: result.Data.(mysql.User),
+	return &resolver.User{
+		Data: *user,
 	}, nil
 }

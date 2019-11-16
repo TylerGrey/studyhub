@@ -8,11 +8,11 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/TylerGrey/hub-api/api/app/handler"
-	"github.com/TylerGrey/hub-api/api/app/repo/mysql"
-	"github.com/TylerGrey/hub-api/api/app/resolvers"
-	"github.com/TylerGrey/hub-api/api/app/schema"
-	mysqlLib "github.com/TylerGrey/hub-api/internal/mysql"
+	"github.com/TylerGrey/study-hub/api/app/handler"
+	"github.com/TylerGrey/study-hub/internal/mysql/repo"
+	"github.com/TylerGrey/study-hub/api/app/resolvers"
+	"github.com/TylerGrey/study-hub/api/app/schema"
+	mysqlLib "github.com/TylerGrey/study-hub/internal/mysql"
 	"github.com/graph-gophers/graphql-go"
 	"github.com/rs/cors"
 )
@@ -30,12 +30,14 @@ func (s Server) Start() error {
 		log.Println("db initialize error", err.Error())
 		panic(err)
 	}
-	userRepo := mysql.NewUserRepository(mysqlMaster, mysqlReplica)
+	userRepo := repo.NewUserRepository(mysqlMaster, mysqlReplica)
+	hubRepo := repo.NewHubRepository(mysqlMaster, mysqlReplica)
 
 	// Handler 설정
 	h := &handler.GraphQL{
 		Schema: graphql.MustParseSchema(schema.GetRootSchema(), &resolvers.Resolver{
 			UserRepo: userRepo,
+			HubRepo:  hubRepo,
 		}),
 	}
 

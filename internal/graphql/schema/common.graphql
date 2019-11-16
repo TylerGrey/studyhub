@@ -1,0 +1,53 @@
+#############################
+# INTERFACE
+##############################
+interface Node {
+  id: ID!
+}
+
+##############################
+# ENUM
+##############################
+enum OrderDirection {
+  # 오름차순
+  ASC
+  # 내림차순
+  DESC
+}
+
+##############################
+# INPUT
+##############################
+input ImageInput {
+  file: String!
+  width: Int!
+  height: Int!
+}
+
+input AddressInput {
+  address: String!
+  lat: Float!
+  lng: Float!
+}
+
+##############################
+# TYPE
+##############################
+type Image {
+  url: String!
+  width: Int!
+  height: Int!
+}
+
+type Address {
+  address: String!
+  lat: Float!
+  lng: Float!
+}
+
+type PageInfo {
+  startCursor: String
+  endCursor: String
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+}

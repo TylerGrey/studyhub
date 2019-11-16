@@ -1,10 +1,11 @@
 package resolvers
 
 import (
-	"github.com/TylerGrey/hub-api/api/app/repo/mysql"
+	"github.com/TylerGrey/study-hub/internal/mysql/repo"
 )
 
 // Resolver ...
 type Resolver struct {
-	UserRepo mysql.UserRepository
+	UserRepo repo.UserRepository
+	HubRepo  repo.HubRepository
 }

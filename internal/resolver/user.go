@@ -1,15 +1,15 @@
-package model
+package resolver
 
 import (
 	"strconv"
 
-	"github.com/TylerGrey/hub-api/api/app/repo/mysql"
+	"github.com/TylerGrey/study-hub/internal/mysql/repo"
 	"github.com/graph-gophers/graphql-go"
 )
 
 // User ...
 type User struct {
-	Data mysql.User
+	Data repo.User
 }
 
 // ID ...
