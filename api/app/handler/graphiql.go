@@ -12,37 +12,56 @@ func (h *GraphiQL) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 var graphiql = []byte(`
 <!DOCTYPE html>
 <html>
-	<head>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/graphiql/0.11.11/graphiql.css"/>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.2.0/umd/react.production.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.2.0/umd/react-dom.production.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/graphiql/0.11.11/graphiql.min.js"></script>
-	</head>
-	<body style="width: 100%; height: 100%; margin: 0; overflow: hidden;">
-		<div id="graphiql" style="height: 100vh;">Loading...</div>
-		<script>
-			function fetchGQL(params) {
-				return fetch("/graphql", {
-					method: "post",
-					body: JSON.stringify(params),
-					credentials: "include",
-				}).then(function (resp) {
-					return resp.text();
-				}).then(function (body) {
-					try {
-						return JSON.parse(body);
-					} catch (error) {
-						return body;
-					}
-				});
-			}
 
-			ReactDOM.render(
-				React.createElement(GraphiQL, {fetcher: fetchGQL}),
-				document.getElementById("graphiql")
-			)
-		</script>
-	</body>
+<head>
+  <meta charset=utf-8/>
+  <meta name="viewport" content="user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, minimal-ui">
+  <title>GraphQL Playground</title>
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/graphql-playground-react/build/static/css/index.css" />
+  <link rel="shortcut icon" href="//cdn.jsdelivr.net/npm/graphql-playground-react/build/favicon.png" />
+  <script src="//cdn.jsdelivr.net/npm/graphql-playground-react/build/static/js/middleware.js"></script>
+</head>
+
+<body>
+  <div id="root">
+    <style>
+      body {
+        background-color: rgb(23, 42, 58);
+        font-family: Open Sans, sans-serif;
+        height: 90vh;
+      }
+      #root {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .loading {
+        font-size: 32px;
+        font-weight: 200;
+        color: rgba(255, 255, 255, .6);
+        margin-left: 20px;
+      }
+      img {
+        width: 78px;
+        height: 78px;
+      }
+      .title {
+        font-weight: 400;
+      }
+    </style>
+    <img src='//cdn.jsdelivr.net/npm/graphql-playground-react/build/logo.png' alt=''>
+    <div class="loading"> Loading
+      <span class="title">GraphQL Playground</span>
+    </div>
+  </div>
+  <script>window.addEventListener('load', function (event) {
+      GraphQLPlayground.init(document.getElementById('root'), {
+        endpoint: '/graphql'
+      })
+    })</script>
+</body>
+
 </html>
 `)
