@@ -3,3 +3,7 @@ schema:
 
 run:
 	go run main.go
+
+test:
+	@read -p "Enter Function Name:" func; \
+	go test -timeout 30s github.com/TylerGrey/study-hub/api/app/resolvers -v -run $$func

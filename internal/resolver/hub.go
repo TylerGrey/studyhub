@@ -52,7 +52,7 @@ func (h Hub) Images() *[]Image {
 
 // Tel ...
 func (h Hub) Tel() *string {
-	return &h.Data.Tel
+	return h.Data.Tel
 }
 
 // Address ...

@@ -19,8 +19,12 @@ func (r *Resolver) CreateHub(input args.CreateHubInput) (*resolver.Hub, error) {
 		Lng:     input.Input.Address.Lng,
 	}
 
+	// TODO: 이미지 처리
+	coverImage, _ := json.Marshal(input.Input.CoverImage)
+	m.CoverImage = coverImage
+
 	if input.Input.Tel != nil {
-		m.Tel = *input.Input.Tel
+		m.Tel = input.Input.Tel
 	}
 
 	if input.Input.Images != nil {
@@ -70,7 +74,7 @@ func (r *Resolver) UpdateHub(input args.UpdateHubInput) (*resolver.Hub, error) {
 	}
 
 	if input.Input.Tel != nil {
-		m.Tel = *input.Input.Tel
+		m.Tel = input.Input.Tel
 	}
 
 	if input.Input.Address != nil {

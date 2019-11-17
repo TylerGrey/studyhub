@@ -16,12 +16,12 @@ type Hub struct {
 	Type       string
 	CoverImage mysql.JSON
 	Images     mysql.JSON
-	Tel        string
+	Tel        *string
 	Address    string
 	Lat        float64
 	Lng        float64
 	Hours      mysql.JSON
-	Cursor     string
+	Cursor     string `gorm:"-"`
 	CreatedAt  time.Time
 	UpdatedAt  time.Time
 	DeletedAt  *time.Time
