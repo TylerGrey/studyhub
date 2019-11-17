@@ -9,10 +9,10 @@ import (
 	"syscall"
 
 	"github.com/TylerGrey/study-hub/api/app/handler"
-	"github.com/TylerGrey/study-hub/internal/mysql/repo"
 	"github.com/TylerGrey/study-hub/api/app/resolvers"
 	"github.com/TylerGrey/study-hub/api/app/schema"
 	mysqlLib "github.com/TylerGrey/study-hub/internal/mysql"
+	"github.com/TylerGrey/study-hub/internal/mysql/repo"
 	"github.com/graph-gophers/graphql-go"
 	"github.com/rs/cors"
 )
@@ -32,12 +32,14 @@ func (s Server) Start() error {
 	}
 	userRepo := repo.NewUserRepository(mysqlMaster, mysqlReplica)
 	hubRepo := repo.NewHubRepository(mysqlMaster, mysqlReplica)
+	hubIncorrectInfoRepo := repo.NewHubIncorrectInfoRepository(mysqlMaster, mysqlReplica)
 
 	// Handler 설정
 	h := &handler.GraphQL{
 		Schema: graphql.MustParseSchema(schema.GetRootSchema(), &resolvers.Resolver{
-			UserRepo: userRepo,
-			HubRepo:  hubRepo,
+			UserRepo:             userRepo,
+			HubRepo:              hubRepo,
+			HubIncorrectInfoRepo: hubIncorrectInfoRepo,
 		}),
 	}
 

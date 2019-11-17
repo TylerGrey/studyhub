@@ -6,6 +6,7 @@ import (
 
 // Resolver ...
 type Resolver struct {
-	UserRepo repo.UserRepository
-	HubRepo  repo.HubRepository
+	UserRepo             repo.UserRepository
+	HubRepo              repo.HubRepository
+	HubIncorrectInfoRepo repo.HubIncorrectInfoRepository
 }

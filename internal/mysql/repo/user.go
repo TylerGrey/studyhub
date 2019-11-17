@@ -8,7 +8,7 @@ import (
 
 // User 사용자
 type User struct {
-	ID        int64  `json:"id" gorm:"primary_key"`
+	ID        uint64 `json:"id" gorm:"primary_key"`
 	Email     string `json:"email"`
 	Password  string `json:"password"`
 	Name      string `json:"name"`
@@ -21,7 +21,7 @@ type User struct {
 type UserRepository interface {
 	Create(user User) (*User, error)
 	List(page int32, limit int32) ([]*User, error)
-	FindByID(id int64) (*User, error)
+	FindByID(id uint64) (*User, error)
 }
 
 // userRepository 인터페이스 구조체
@@ -61,7 +61,7 @@ func (r userRepository) List(page int32, limit int32) ([]*User, error) {
 }
 
 // FindByID ID로 유저 조회
-func (r userRepository) FindByID(id int64) (*User, error) {
+func (r userRepository) FindByID(id uint64) (*User, error) {
 	user := &User{}
 
 	err := r.replica.

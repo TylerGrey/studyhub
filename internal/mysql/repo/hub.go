@@ -11,7 +11,7 @@ import (
 
 // Hub 사용자
 type Hub struct {
-	ID         int64 `gorm:"primary_key"`
+	ID         uint64 `gorm:"primary_key"`
 	Name       string
 	Type       string
 	CoverImage mysql.JSON
@@ -31,8 +31,8 @@ type Hub struct {
 type HubRepository interface {
 	Create(hub Hub) (*Hub, error)
 	Update(hub Hub) (*Hub, error)
-	Delete(id int64) error
-	FindByID(id int64) (*Hub, error)
+	Delete(id uint64) error
+	FindByID(id uint64) (*Hub, error)
 
 	List(args ListArgs) ([]*Hub, PageInfo, error)
 }
@@ -75,7 +75,7 @@ func (r hubRepository) Update(hub Hub) (*Hub, error) {
 }
 
 // Delete 허브 수정
-func (r hubRepository) Delete(id int64) error {
+func (r hubRepository) Delete(id uint64) error {
 	if err := r.master.Table("hub").Delete(&Hub{
 		ID: id,
 	}).Error; err != nil {
@@ -86,7 +86,7 @@ func (r hubRepository) Delete(id int64) error {
 }
 
 // FindByID ID로 Hub 조회
-func (r hubRepository) FindByID(id int64) (*Hub, error) {
+func (r hubRepository) FindByID(id uint64) (*Hub, error) {
 	hub := &Hub{}
 
 	err := r.replica.Table("hub").Where("id = ?", id).Find(hub).Error

@@ -10,7 +10,7 @@ import (
 func (r *Resolver) User(args struct {
 	ID string
 }) (*resolver.User, error) {
-	id, err := strconv.ParseInt(args.ID, 10, 64)
+	id, err := strconv.ParseUint(args.ID, 10, 64)
 	if err != nil {
 		return nil, err
 	}

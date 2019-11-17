@@ -44,7 +44,7 @@ func (r *Resolver) CreateHub(input args.CreateHubInput) (*resolver.Hub, error) {
 
 // UpdateHub Hub 수정
 func (r *Resolver) UpdateHub(input args.UpdateHubInput) (*resolver.Hub, error) {
-	id, err := strconv.ParseInt(input.Input.ID, 10, 64)
+	id, err := strconv.ParseUint(input.Input.ID, 10, 64)
 	if err != nil {
 		return nil, err
 	}
@@ -98,7 +98,7 @@ func (r *Resolver) UpdateHub(input args.UpdateHubInput) (*resolver.Hub, error) {
 func (r *Resolver) DeleteHub(args struct {
 	ID string
 }) (bool, error) {
-	id, err := strconv.ParseInt(args.ID, 10, 64)
+	id, err := strconv.ParseUint(args.ID, 10, 64)
 	if err != nil {
 		return false, err
 	}
@@ -108,4 +108,28 @@ func (r *Resolver) DeleteHub(args struct {
 	}
 
 	return true, nil
+}
+
+// AddHubIncorrectInfo 잘못된 정보 수정 요청
+func (r *Resolver) AddHubIncorrectInfo(input args.AddHubIncorrectInfoInput) (*resolver.HubIncorrectInfo, error) {
+	hubID, err := strconv.ParseUint(input.Input.HubID, 10, 64)
+	if err != nil {
+		return nil, err
+	}
+
+	// TODO: 로그인 적용 하면, 토큰으로 User id 받아오도록 수정 필요
+	m := repo.HubIncorrectInfo{
+		HubID:   hubID,
+		UserID:  uint64(1),
+		Message: input.Input.Message,
+	}
+
+	info, err := r.HubIncorrectInfoRepo.Create(m)
+	if err != nil {
+		return nil, err
+	}
+
+	return &resolver.HubIncorrectInfo{
+		Data: *info,
+	}, nil
 }

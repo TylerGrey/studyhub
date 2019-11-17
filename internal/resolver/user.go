@@ -14,7 +14,8 @@ type User struct {
 
 // ID ...
 func (u User) ID() graphql.ID {
-	return graphql.ID(strconv.Itoa(int(u.Data.ID)))
+	id := strconv.FormatUint(u.Data.ID, 10)
+	return graphql.ID(id)
 }
 
 // Email ...

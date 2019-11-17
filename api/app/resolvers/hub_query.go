@@ -13,7 +13,7 @@ import (
 func (r *Resolver) Hub(args struct {
 	ID string
 }) (*resolver.Hub, error) {
-	id, err := strconv.ParseInt(args.ID, 10, 64)
+	id, err := strconv.ParseUint(args.ID, 10, 64)
 	if err != nil {
 		return nil, err
 	}
