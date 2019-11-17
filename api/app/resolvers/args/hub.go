@@ -47,3 +47,14 @@ type HubsArgs struct {
 	Before  *string
 	OrderBy *OrderBy
 }
+
+// AddHubIncorrectInfoInput 잘못된 정보 수정 요청 Args
+type AddHubIncorrectInfoInput struct {
+	Input AddHubIncorrectInfoArgs
+}
+
+// AddHubIncorrectInfoArgs ...
+type AddHubIncorrectInfoArgs struct {
+	HubID   string
+	Message string
+}

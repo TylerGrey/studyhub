@@ -1,7 +1,13 @@
 type Mutation {
+    # User 생성
     createUser(input: CreateUserInput!): User
 
+    # Hub 생성
     createHub(input: CreateHubInput!): Hub
+    # Hub 수정
     updateHub(input: UpdateHubInput!): Hub
+    # Hub 삭제
     deleteHub(id: ID!): Boolean!
+    # Hub 정보 수정 요청
+    addHubIncorrectInfo(input: AddHubIncorrectInfoInput!): HubIncorrectInfo
 }

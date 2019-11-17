@@ -16,7 +16,8 @@ type Hub struct {
 
 // ID ...
 func (h Hub) ID() graphql.ID {
-	return graphql.ID(strconv.Itoa(int(h.Data.ID)))
+	id := strconv.FormatUint(h.Data.ID, 10)
+	return graphql.ID(id)
 }
 
 // Name ...
@@ -51,7 +52,7 @@ func (h Hub) Images() *[]Image {
 
 // Tel ...
 func (h Hub) Tel() *string {
-	return &h.Data.Tel
+	return h.Data.Tel
 }
 
 // Address ...

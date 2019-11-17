@@ -47,6 +47,11 @@ input HubOrder {
   direction: OrderDirection!
 }
 
+input AddHubIncorrectInfoInput {
+  hubId: String!
+  message: String!
+}
+
 ##############################
 # TYPE
 ##############################
@@ -78,4 +83,15 @@ type Hub implements Node {
 type HubHour {
   label: String!
   value: String!
+}
+
+type HubIncorrectInfo {
+  id: ID!
+  hubId: ID!
+  userId: ID!
+  message: String!
+  isFixed: Boolean!
+  createdAt: String!
+  updatedAt: String!
+  deletedAt: String
 }
