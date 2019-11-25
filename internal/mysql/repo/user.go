@@ -8,10 +8,16 @@ import (
 
 // User 사용자
 type User struct {
-	ID        uint64 `json:"id" gorm:"primary_key"`
-	Email     string `json:"email"`
-	Password  string `json:"password"`
-	Name      string `json:"name"`
+	ID        uint64 `gorm:"primary_key"`
+	UUID      string
+	Email     string
+	Password  string
+	FirstName *string
+	LastName  *string
+	Nickname  string
+	Mobile    string
+	Birth     *string
+	Gender    *string
 	CreatedAt time.Time
 	UpdatedAt time.Time
 	DeletedAt *time.Time
@@ -48,7 +54,7 @@ func (r userRepository) Create(user User) (*User, error) {
 	return &user, nil
 }
 
-// // List 유저 리스트 조회
+// List 유저 리스트 조회
 func (r userRepository) List(page int32, limit int32) ([]*User, error) {
 	users := []*User{}
 

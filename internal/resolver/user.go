@@ -1,8 +1,6 @@
 package resolver
 
 import (
-	"strconv"
-
 	"github.com/TylerGrey/study-hub/internal/mysql/repo"
 	"github.com/graph-gophers/graphql-go"
 )
@@ -14,8 +12,7 @@ type User struct {
 
 // ID ...
 func (u User) ID() graphql.ID {
-	id := strconv.FormatUint(u.Data.ID, 10)
-	return graphql.ID(id)
+	return graphql.ID(u.Data.UUID)
 }
 
 // Email ...
@@ -23,9 +20,34 @@ func (u User) Email() string {
 	return u.Data.Email
 }
 
-// Name ...
-func (u User) Name() string {
-	return u.Data.Name
+// FirstName ...
+func (u User) FirstName() *string {
+	return u.Data.FirstName
+}
+
+// LastName ...
+func (u User) LastName() *string {
+	return u.Data.LastName
+}
+
+// Nickname ...
+func (u User) Nickname() string {
+	return u.Data.Nickname
+}
+
+// Mobile ...
+func (u User) Mobile() string {
+	return u.Data.Mobile
+}
+
+// Birth ...
+func (u User) Birth() *string {
+	return u.Data.Birth
+}
+
+// Gender ...
+func (u User) Gender() *string {
+	return u.Data.Gender
 }
 
 // CreatedAt ...
