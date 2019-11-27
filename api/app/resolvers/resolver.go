@@ -1,7 +1,7 @@
 package resolvers
 
 import (
-	"github.com/TylerGrey/study-hub/internal/mysql/repo"
+	"github.com/TylerGrey/studyhub/internal/mysql/repo"
 )
 
 // Resolver ...

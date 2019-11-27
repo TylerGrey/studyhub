@@ -1,7 +1,7 @@
 package resolvers_test
 
 import (
-	"github.com/TylerGrey/study-hub/api/app/resolvers/args"
+	"github.com/TylerGrey/studyhub/api/app/resolvers/args"
 	"testing"
 )
 

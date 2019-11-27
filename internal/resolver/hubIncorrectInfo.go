@@ -3,7 +3,7 @@ package resolver
 import (
 	"strconv"
 
-	"github.com/TylerGrey/study-hub/internal/mysql/repo"
+	"github.com/TylerGrey/studyhub/internal/mysql/repo"
 	"github.com/graph-gophers/graphql-go"
 )
 

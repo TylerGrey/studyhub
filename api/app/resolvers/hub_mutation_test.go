@@ -5,10 +5,10 @@ import (
 	"os"
 	"testing"
 
-	"github.com/TylerGrey/study-hub/api/app/resolvers"
-	"github.com/TylerGrey/study-hub/api/app/resolvers/args"
-	mysqlLib "github.com/TylerGrey/study-hub/internal/mysql"
-	"github.com/TylerGrey/study-hub/internal/mysql/repo"
+	"github.com/TylerGrey/studyhub/api/app/resolvers"
+	"github.com/TylerGrey/studyhub/api/app/resolvers/args"
+	mysqlLib "github.com/TylerGrey/studyhub/internal/mysql"
+	"github.com/TylerGrey/studyhub/internal/mysql/repo"
 	"github.com/joho/godotenv"
 )
 
