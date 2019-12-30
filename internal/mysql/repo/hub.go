@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/TylerGrey/study-hub/internal/mysql"
+	"github.com/TylerGrey/studyhub/internal/mysql"
 
 	"github.com/jinzhu/gorm"
 )

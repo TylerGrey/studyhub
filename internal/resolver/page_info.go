@@ -1,7 +1,7 @@
 package resolver
 
 import (
-	"github.com/TylerGrey/study-hub/internal/resolver/model"
+	"github.com/TylerGrey/studyhub/internal/resolver/model"
 )
 
 // PageInfo 공통 페이지 정보

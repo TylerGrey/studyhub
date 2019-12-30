@@ -1,13 +1,37 @@
+##############################
+# ENUM
+##############################
+enum Gender {
+  M,
+  W
+}
+
+##############################
+# INPUT
+##############################
 input CreateUserInput {
   email: String!
   password: String!
-  name: String!
+  firstName: String
+  lastName: String
+  nickname: String!
+  mobile: String!
+  birth: String
+  gender: Gender
 }
 
+##############################
+# TYPE
+##############################
 type User {
   id: ID!
   email: String!
-  name: String!
+  firstName: String
+  lastName: String
+  nickname: String!
+  mobile: String!
+  birth: String
+  gender: Gender
   createdAt: String!
   updatedAt: String!
   deletedAt: String

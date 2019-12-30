@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"strconv"
 
-	"github.com/TylerGrey/study-hub/api/app/resolvers/args"
-	"github.com/TylerGrey/study-hub/internal/mysql/repo"
-	"github.com/TylerGrey/study-hub/internal/resolver"
+	"github.com/TylerGrey/studyhub/api/app/resolvers/args"
+	"github.com/TylerGrey/studyhub/internal/mysql/repo"
+	"github.com/TylerGrey/studyhub/internal/resolver"
 )
 
 // CreateHub Hub 생성

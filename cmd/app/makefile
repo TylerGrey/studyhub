@@ -6,4 +6,4 @@ run:
 
 test:
 	@read -p "Enter Function Name:" func; \
-	go test -timeout 30s github.com/TylerGrey/study-hub/api/app/resolvers -v -run $$func
+	go test -timeout 30s github.com/TylerGrey/studyhub/api/app/resolvers -v -run $$func

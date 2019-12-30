@@ -3,7 +3,7 @@ package resolvers
 import (
 	"strconv"
 
-	"github.com/TylerGrey/study-hub/internal/resolver"
+	"github.com/TylerGrey/studyhub/internal/resolver"
 )
 
 // User 유저 조회

@@ -7,7 +7,12 @@ type CreateUserInput struct {
 
 // CreateUserArgs ...
 type CreateUserArgs struct {
-	Email    string
-	Password string
-	Name     string
+	Email     string
+	Password  string
+	FirstName *string
+	LastName  *string
+	Nickname  string
+	Mobile    string
+	Birth     *string
+	Gender    *string
 }

@@ -1,8 +1,8 @@
 package resolver
 
 import (
-	"github.com/TylerGrey/study-hub/internal/mysql/repo"
-	"github.com/TylerGrey/study-hub/internal/resolver/model"
+	"github.com/TylerGrey/studyhub/internal/mysql/repo"
+	"github.com/TylerGrey/studyhub/internal/resolver/model"
 )
 
 // HubConnection ...

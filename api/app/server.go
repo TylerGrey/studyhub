@@ -8,11 +8,11 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/TylerGrey/study-hub/api/app/handler"
-	"github.com/TylerGrey/study-hub/api/app/resolvers"
-	"github.com/TylerGrey/study-hub/api/app/schema"
-	mysqlLib "github.com/TylerGrey/study-hub/internal/mysql"
-	"github.com/TylerGrey/study-hub/internal/mysql/repo"
+	"github.com/TylerGrey/studyhub/api/app/handler"
+	"github.com/TylerGrey/studyhub/api/app/resolvers"
+	"github.com/TylerGrey/studyhub/api/app/schema"
+	mysqlLib "github.com/TylerGrey/studyhub/internal/mysql"
+	"github.com/TylerGrey/studyhub/internal/mysql/repo"
 	"github.com/graph-gophers/graphql-go"
 	"github.com/rs/cors"
 )
