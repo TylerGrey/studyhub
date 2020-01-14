@@ -1,5 +1,10 @@
 package args
 
+
+////////////////////////////////
+// Mutation
+////////////////////////////////
+
 // CreateHubInput 사용자 생성 Args
 type CreateHubInput struct {
 	Input CreateHubArgs
@@ -39,15 +44,6 @@ type HubHoursInput struct {
 	Value string `json:"value"`
 }
 
-// HubsArgs ...
-type HubsArgs struct {
-	First   *int32
-	Last    *int32
-	After   *string
-	Before  *string
-	OrderBy *OrderBy
-}
-
 // AddHubIncorrectInfoInput 잘못된 정보 수정 요청 Args
 type AddHubIncorrectInfoInput struct {
 	Input AddHubIncorrectInfoArgs
@@ -57,4 +53,17 @@ type AddHubIncorrectInfoInput struct {
 type AddHubIncorrectInfoArgs struct {
 	HubID   string
 	Message string
+}
+
+////////////////////////////////
+// Query
+////////////////////////////////
+
+// HubsArgs ...
+type HubsArgs struct {
+	First   *int32
+	Last    *int32
+	After   *string
+	Before  *string
+	OrderBy *OrderBy
 }

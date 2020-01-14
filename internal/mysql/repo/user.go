@@ -28,6 +28,7 @@ type UserRepository interface {
 	Create(user User) (*User, error)
 	List(page int32, limit int32) ([]*User, error)
 	FindByID(id uint64) (*User, error)
+	FindByIDs(ids []uint64) ([]*User, error)
 }
 
 // userRepository 인터페이스 구조체
@@ -79,4 +80,19 @@ func (r userRepository) FindByID(id uint64) (*User, error) {
 	}
 
 	return user, nil
+}
+
+// FindByIDs ID로 유저 조회
+func (r userRepository) FindByIDs(ids []uint64) ([]*User, error) {
+	users := []*User{}
+
+	err := r.replica.
+		Table("user").
+		Where("id in (?)", ids).
+		Find(&users).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return users, nil
 }

@@ -8,7 +8,9 @@ import (
 	"os/signal"
 	"syscall"
 
+	"github.com/TylerGrey/studyhub/api/app/client"
 	"github.com/TylerGrey/studyhub/api/app/handler"
+	"github.com/TylerGrey/studyhub/api/app/loader"
 	"github.com/TylerGrey/studyhub/api/app/resolvers"
 	"github.com/TylerGrey/studyhub/api/app/schema"
 	mysqlLib "github.com/TylerGrey/studyhub/internal/mysql"
@@ -33,6 +35,7 @@ func (s Server) Start() error {
 	userRepo := repo.NewUserRepository(mysqlMaster, mysqlReplica)
 	hubRepo := repo.NewHubRepository(mysqlMaster, mysqlReplica)
 	hubIncorrectInfoRepo := repo.NewHubIncorrectInfoRepository(mysqlMaster, mysqlReplica)
+	hubReviewRepo := repo.NewHubReviewRepository(mysqlMaster, mysqlReplica)
 
 	// Handler 설정
 	h := &handler.GraphQL{
@@ -40,6 +43,10 @@ func (s Server) Start() error {
 			UserRepo:             userRepo,
 			HubRepo:              hubRepo,
 			HubIncorrectInfoRepo: hubIncorrectInfoRepo,
+			HubReviewRepo:        hubReviewRepo,
+		}),
+		Loaders: loader.Initialize(client.Client{
+			UserRepo: userRepo,
 		}),
 	}
 

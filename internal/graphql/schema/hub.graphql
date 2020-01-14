@@ -95,3 +95,15 @@ type HubIncorrectInfo {
   updatedAt: String!
   deletedAt: String
 }
+
+type HubReview {
+  # 리뷰 작성자
+  id: ID!
+  user: User
+  rating: Int!
+  review: String!
+  images: [Image!]
+  createdAt: String!
+  updatedAt: String!
+  deletedAt: String
+}

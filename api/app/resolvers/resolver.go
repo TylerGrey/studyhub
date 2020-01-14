@@ -9,4 +9,5 @@ type Resolver struct {
 	UserRepo             repo.UserRepository
 	HubRepo              repo.HubRepository
 	HubIncorrectInfoRepo repo.HubIncorrectInfoRepository
+	HubReviewRepo        repo.HubReviewRepository
 }

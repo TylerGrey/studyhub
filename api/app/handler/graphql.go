@@ -4,12 +4,14 @@ import (
 	"encoding/json"
 	"net/http"
 
+	"github.com/TylerGrey/studyhub/api/app/loader"
 	"github.com/graph-gophers/graphql-go"
 )
 
 // GraphQL GraphQL 핸들러
 type GraphQL struct {
-	Schema *graphql.Schema
+	Schema  *graphql.Schema
+	Loaders loader.Collection
 }
 
 func (h *GraphQL) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -23,7 +25,8 @@ func (h *GraphQL) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	response := h.Schema.Exec(r.Context(), params.Query, params.OperationName, params.Variables)
+	ctx       := h.Loaders.Attach(r.Context()) // Attach dataloaders onto the request context.
+	response := h.Schema.Exec(ctx, params.Query, params.OperationName, params.Variables)
 	responseJSON, err := json.Marshal(response)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)

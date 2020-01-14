@@ -3,4 +3,5 @@ type Query {
 
     hub(id: ID!): Hub!
     hubs(first: Int, last: Int, after: String, before: String, orderBy: HubOrder): HubConnection!
+    hubReviews(hubId: ID!): [HubReview]
 }

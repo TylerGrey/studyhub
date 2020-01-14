@@ -58,3 +58,27 @@ func (r *Resolver) Hubs(args args.HubsArgs) (resolver.HubConnection, error) {
 		Page: page,
 	}, nil
 }
+
+// HubReviews 허브 리뷰 조회
+func (r *Resolver) HubReviews(args struct {
+	HubID string
+}) (*[]*resolver.HubReview, error) {
+	hubID, err := strconv.ParseUint(args.HubID, 10, 64)
+	if err != nil {
+		return nil, err
+	}
+
+	reviews, err := r.HubReviewRepo.List(hubID)
+	if err != nil {
+		return nil, err
+	}
+
+	resolvers := []*resolver.HubReview{}
+	for _, r := range reviews {
+		resolvers = append(resolvers, &resolver.HubReview{
+			Data: *r,
+		})
+	}
+
+	return &resolvers, nil
+}
