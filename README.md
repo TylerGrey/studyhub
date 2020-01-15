@@ -36,3 +36,5 @@
 
 3. dataloader
 4. cusor based pagination
+5. graphql file upload
+[참고](https://github.com/jpascal/graphql-upload/blob/master/handler.go)
