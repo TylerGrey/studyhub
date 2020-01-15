@@ -10,4 +10,6 @@ type Mutation {
     deleteHub(id: ID!): Boolean!
     # Hub 정보 수정 요청
     addHubIncorrectInfo(input: AddHubIncorrectInfoInput!): HubIncorrectInfo
+
+    fileUpload(file: Upload!, title: String!): Boolean!
 }

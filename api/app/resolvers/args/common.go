@@ -1,5 +1,7 @@
 package args
 
+import "mime/multipart"
+
 // ImageInput ...
 type ImageInput struct {
 	File   string
@@ -18,4 +20,11 @@ type AddressInput struct {
 type OrderBy struct {
 	Field     string
 	Direction string
+}
+
+// FileInput file input
+type FileInput struct {
+	File     multipart.File
+	Filename string
+	Size     int64
 }
